@@ -1,0 +1,136 @@
+---
+title: CSCI-626 | Project 03
+permalink: /
+layout: none
+---
+
+<!--
+    Gavin St. George
+    CSCI 626
+    Project 3
+    Fall 2023
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{{page.title}}</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg bg-primary">
+        <div class="container-fluid">
+            <div class="col">
+                <p class="navbar-brand text-bg-primary p-0 m-0" id="title" href="#">CSCI-626 Project 3</p>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    <select class="form-select" id="filter-type" style="max-width:fit-content" aria-label="Default select example">
+                        <option value="person" selected>Person</option>
+                        <option value="org">Organization</option>
+                        <option value="place">Place</option>
+                        <option value="date">Date</option>
+                    </select>
+                    <input class="form-control" id="filter" type="search" placeholder="Search" aria-label="Search">
+                </div>
+            </div>
+            <div class="col"><span/></div>
+        </div>
+    </nav>
+    <div class="container p-3">
+        <div class="accordion" id="reports-container">
+            {% for report in site.data.reports %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button bg-secondary p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ report.ID }}" aria-expanded="true" aria-controls="collapse-{{ report.ID }}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col ">
+                                        <p class="mb-1"><strong>ID: <span class="id">{{ report.ID }}</span></strong></p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="mb-1"><strong>Source: </strong>{{ report.REPORTSOURCE }}</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="mb-1"><strong>Report Date: </strong>{{ report.REPORTDATE }}</p>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapse-{{ report.ID }}" class="accordion-collapse collapse">
+                        <div class="accordion-body mx-4">
+                            <div class="content border border-primary rounded-2 mb-3 p-3">
+                                <div class="row">
+                                    <div class="content">
+                                        <p><strong>REPORT DESCRIPTION</strong></p>
+                                        <p class="font-monospace">{{report.REPORTDESCRIPTION}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid border border-primary rounded-2 mb-3 p-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <p><strong>PERSONS</strong></p>
+                                        {% if report.PERSONS %}
+                                            <ul>
+                                                {% for entry in report.PERSONS %}
+                                                    <li class="key-value person">{{ entry }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <p class="person">None</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col">
+                                        <p><strong>PLACES</strong></p>
+                                        {% if report.PLACES %}
+                                            <ul>
+                                                {% for entry in report.PLACES %}
+                                                    <li class="key-value place">{{ entry }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <p class="place">None</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col">
+                                        <p><strong>ORGS</strong></p>
+                                        {% if report.ORGANIZATIONS %}
+                                            <ul>
+                                                {% for entry in report.ORGANIZATIONS %}
+                                                    <li class="key-value org">{{ entry }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <p class="org">None</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col">
+                                        <p><strong>DATES</strong></p>
+                                        {% if report.DATES %}
+                                            <ul>
+                                                {% for entry in report.DATES %}
+                                                    <li class="key-value date">{{ entry }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <p class="date">None</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+<footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+</footer>
+</html>
